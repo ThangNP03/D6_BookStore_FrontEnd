@@ -31,7 +31,9 @@ export default function Navbar() {
                         >
                             <span className="navbar-toggler-icon"></span>
                         </button>
-
+                        <Link className="btn btn-outline-dark mx-2" to="/bookManager">
+                                Quanr lys sách
+                            </Link>
                         <div>
 
                             <Link className="btn btn-outline-dark" to="/register">

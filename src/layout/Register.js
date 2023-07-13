@@ -38,8 +38,8 @@ export default function Register() {
           
           
         } catch (error) {
-            toast.error("Tài khoản hoặc mật khẩu không chính xác" )
-            console.log(error);
+            toast.error(error.response.data )
+           
         }
 
     }
