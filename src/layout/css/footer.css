@@ -1,0 +1,25 @@
+.line-right{
+    border-right: 1px solid #cecece;
+}
+.text-footer{
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px;
+}
+.footer-book{
+    border-radius: 5px;
+}.text-mail{
+    font-size: 24px;
+    font-weight: 600;
+}
+h5{
+    font-weight: 400 !important;
+    text-transform: uppercase;
+}
+.footer-text{
+    font-size: 14px;
+    font-weight: 400 !important;
+}
+.map{
+    font-size: 14px !important;
+}

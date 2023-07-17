@@ -39,3 +39,16 @@ label{
 
     color: #fff;
 }
+
+.kep-login-facebook{
+    margin-top: 5px;
+    background-color: #2489F4 !important;
+    padding: 5px 10px !important;
+    vertical-align: middle !important;
+    border-radius: 5px !important;
+    width: 60%;
+    border: none !important;
+    color: #fff !important;
+    font-weight: 300 !important;
+    font-size: 16px !important;
+}

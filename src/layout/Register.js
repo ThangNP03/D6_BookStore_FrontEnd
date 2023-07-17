@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { toast } from "react-hot-toast"
 import '../layout/css/Login.css'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Register() {
+    const navigate = useNavigate('');
 
     const [users, setUsers] = useState(
         {
@@ -35,7 +37,7 @@ export default function Register() {
             await axios.post('http://localhost:8080/api/bookStore/auth/signUp', { fullName, username, passWord, phoneNumber })
             toast.success("Đăng ký thành công!")
             console.log("======>", users);
-          
+            navigate('/login')         
           
         } catch (error) {
             toast.error(error.response.data )
@@ -44,7 +46,7 @@ export default function Register() {
 
     }
     return (
-        <div className="container">
+        <div className="container mt-5 mb-5">
             <div className="row ">
                 <div className="col-md-4 offset-md-4 border rounded p-4 mt-2 shadow ">
                     <h2 className="text-center m-4">Đăng Ký</h2>
@@ -99,6 +101,7 @@ export default function Register() {
                             />
                         </div>
 
+                        <div className='text-center'>
                         <button onClick={handleRegister} type="submit" className="btn-login mb-4">
                             Đăng Ký
                         </button>
@@ -108,6 +111,7 @@ export default function Register() {
                             &
                             <a href=""> Điều khoản dịch vụ</a>
 
+                        </div>
                         </div>
                     </form>
                 </div>
