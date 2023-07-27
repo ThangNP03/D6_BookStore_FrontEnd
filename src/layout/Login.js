@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"
 
 import FacebookLogin from 'react-facebook-login';
@@ -9,6 +9,7 @@ import FacebookLogin from 'react-facebook-login';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [passWord, setPassWord] = useState('');
+  const [name, setName] = useState('');
 
   const navigate = useNavigate();
 
@@ -32,8 +33,6 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const permissionList = ['ADMIN', 'PM', 'USER'];
-
       const response = await axios.post(
 
         "http://localhost:8080/api/bookStore/auth/signIn",
@@ -43,37 +42,24 @@ export default function Login() {
             Authorization: 'Bearer ',
           },
         }
-      ).then((response) => {
-        if (response.status === 200) {
-          console.log(response.data);
-          if (permissionList[2] == response.data.listRoles[0].authority) {
-            sessionStorage.setItem('username', username)
-         
-            sessionStorage.setItem('token', response.data.token)
-          
-              toast('Xin Chào ' + response.data.fullName, {
-                icon: '👏',
-              });
-              navigate('/')
-          
-          
-          }
-        }
-      });
+      )
+      if (username === "" || passWord === "") {
+        toast.error("Thông tin không được để trống")
+      } else {
+        sessionStorage.setItem('username', username)
+        sessionStorage.setItem('name', name)
+        sessionStorage.setItem('token', response.data.token)
+        sessionStorage.setItem('roles', JSON.stringify(response.data.listRoles))
 
-     
-     
-      if (permissionList[0] == response.data.listRoles[0].authority) {
-        navigate('/')
         toast('Xin Chào ' + response.data.fullName, {
           icon: '👏',
         });
+        navigate('/')
       }
-
 
     } catch (error) {
       console.error(error);
-      // toast.error(error.response.data);
+      toast.error(error.response.data);
     }
 
   };
@@ -118,7 +104,7 @@ export default function Login() {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn-login">
+              <button type="submit" className="btn-login-login">
                 Đăng nhập
               </button>
               <FacebookLogin
@@ -126,11 +112,13 @@ export default function Login() {
                 appId="843734363846322"
                 autoLoad={true}
                 fields="name,email,picture"
-                // onClick={componentClicked}
                 callback={responseFacebook} />
             </div>
-            <div>
-              <a href='/'>Trở lại trang chủ</a>
+            <div className="pt-3">
+              <span>
+                Bạn đã chưa có tài khoản ? 
+              </span>
+              <a style={{textDecoration:'none'}} className="mx-2" href='/register'>Đăng ký ở đây</a>
             </div>
           </form>
         </div>

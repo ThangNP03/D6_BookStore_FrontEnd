@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast"
 import '../layout/css/Login.css'
 import { useNavigate } from 'react-router-dom';
-
+import './css/Register.css'
 
 export default function Register() {
     const navigate = useNavigate('');
@@ -25,11 +25,11 @@ export default function Register() {
 
     };
 
- 
+
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        const {fullName, username, passWord, phoneNumber} = users
+        const { fullName, username, passWord, phoneNumber } = users
         if (!fullName || !username || !passWord || !phoneNumber) {
             return toast.error("Thông tin không được để trống")
         }
@@ -37,11 +37,11 @@ export default function Register() {
             await axios.post('http://localhost:8080/api/bookStore/auth/signUp', { fullName, username, passWord, phoneNumber })
             toast.success("Đăng ký thành công!")
             console.log("======>", users);
-            navigate('/login')         
-          
+            navigate('/login')
+
         } catch (error) {
-            toast.error(error.response.data )
-           
+            toast.error(error.response.data)
+
         }
 
     }
@@ -102,16 +102,15 @@ export default function Register() {
                         </div>
 
                         <div className='text-center'>
-                        <button onClick={handleRegister} type="submit" className="btn-login mb-4">
-                            Đăng Ký
-                        </button>
-                        <div>
-                            Bằng việc đăng ký, bạn  đồng ý với BookStore.com về <br />
-                            <a href="">Điều khoản dịch vụ </a>
-                            &
-                            <a href=""> Điều khoản dịch vụ</a>
-
+                            <button onClick={handleRegister} style={{ fontWeight: '700' }} type="submit" className="btn-login mb-4">
+                                Đăng Ký
+                            </button>
                         </div>
+                        <div className="pb-2">
+                            <span>
+                                Bạn đã chưa có tài khoản ?
+                            </span>
+                            <a style={{textDecoration:'none'}} className="mx-2" href='/login'>Đăng nhập </a>
                         </div>
                     </form>
                 </div>

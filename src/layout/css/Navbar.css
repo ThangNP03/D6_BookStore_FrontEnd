@@ -4,3 +4,134 @@
     width: 480px;
     
 }
+/* dropdow */
+
+.navbar-brand {
+  border: 2px solid red;
+  border-radius: 6px;
+  padding-right: 10px;
+}
+
+.navbar-brand:hover {
+  background-color: #c92127;
+}
+.navbar-brand:hover{
+  color: #fff !important;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+
+}
+.navbar-text{
+  color: #333333;
+  text-decoration: none;
+  padding: 6px 12px;
+  font-weight: 500;
+
+}
+.navbar-text:hover{
+  background-color: #c92127;
+  border-radius: 6px;
+  color: #fff !important;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  width: 200px;
+  float: left;
+}
+.login{
+  border: 2px solid red;
+  border-radius: 6px;
+  color: red;
+ 
+}
+
+.register{
+  border: 2px solid red;
+  border-radius: 6px;
+  color: #fff;
+  background-color: red;
+
+ 
+}
+.dropdown-content a {
+
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+ 
+}
+.avt-a{
+  padding: 0!important;
+}
+
+
+.dropdown-content .login:hover {
+  font-size: 17px;
+}
+.dropdown-content .facebook:hover {
+font-size: 17px;
+}
+.dropdown-content .register:hover {
+font-size: 17px;
+}
+.login{
+border: 2px solid #c92127;
+border-radius: 6px;
+color: #fff;
+background-color: #c92127;
+
+}
+.text-element:hover{
+  font-size: 17px;
+}
+.text-navbar{
+  color: #333333;
+}
+.text-navbar:hover{
+  font-size: 17px;
+}
+.register{
+border: 2px solid #c92127;
+border-radius: 6px;
+color:#c92127;
+background-color: #fff;
+font-weight: 600;
+}
+.facebook{
+background-color: #2489F4;
+  color: white;
+  border: 1px solid #2489F4;
+  border-radius: 6px;
+}
+.dropdown-content a {
+padding: 4px 8px;
+text-decoration: none;
+display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.login-register{
+  text-align: center;
+}
+
+
+
+  
+
+.dropdown:hover .dropbtn {
+
+  background-color: #f3f3f3;
+}
+
+
+/* dropdow */

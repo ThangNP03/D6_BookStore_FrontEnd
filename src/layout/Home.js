@@ -157,7 +157,7 @@ export default function Home() {
                 </div>
                 {/* end icons */}
 
-                <div className='d-flex p-3 mt-4' style={{ backgroundColor: '#FCDAB0' }}>
+                <div className='d-flex p-3 mt-4' style={{ backgroundColor: '#FCDAB0', borderRadius:'6px 6px 0px 0px ' }}>
                     <div className='d-flex'>
                         <img src="	https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png" alt=" ảnh" />
                         <h3 className='mx-3'>Flash Sale</h3>

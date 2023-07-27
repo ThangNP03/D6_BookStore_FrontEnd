@@ -1,0 +1,35 @@
+.book:hover{
+    background-color: #fff !important;
+    border: 1px solid red !important;
+    border-radius: 6px !important;
+    color: red !important;
+}
+.back:hover{
+    font-size: 17px;
+}
+.like-button {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .like-button.clicked {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .hear-all{
+    position: absolute;
+  }
+  .hear-icons{
+    transition: width 2s ease 0s;
+    -moz-transition: width 2s ease 0s;
+    -webkit-transition: width 2s ease 0s;
+    -o-transition: width 2s ease 0s;
+    -ms-transition: width 2s ease 0s;
+ 
+  }
+  .hear-icons:active{
+    height: 50px;
+  }
