@@ -13,6 +13,7 @@ export default function Register() {
             username: "",
             fullName: "",
             phoneNumber: "",
+            address :"",
             passWord: ""
 
         }
@@ -29,14 +30,14 @@ export default function Register() {
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        const { fullName, username, passWord, phoneNumber } = users
-        if (!fullName || !username || !passWord || !phoneNumber) {
-            return toast.error("Thông tin không được để trống")
+        const { fullName, username, passWord, phoneNumber , address} = users
+        if (!fullName || !username || !passWord || !phoneNumber || !address) {
+            return toast.error("Thông tin không được để trống !!!!")
         }
+       
         try {
-            await axios.post('http://localhost:8080/api/bookStore/auth/signUp', { fullName, username, passWord, phoneNumber })
+            await axios.post('http://localhost:8080/api/bookStore/auth/signUp', { fullName, username, passWord, phoneNumber, address })
             toast.success("Đăng ký thành công!")
-            console.log("======>", users);
             navigate('/login')
 
         } catch (error) {
@@ -85,6 +86,17 @@ export default function Register() {
                                 placeholder="Nhập vào số điện thoại "
                                 name="phoneNumber"
                                 value={users.phoneNumber}
+                                onChange={handleChange}
+
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type={"text"}
+                                className="form-control"
+                                placeholder="Số nhà , Quận/Huyện , tỉnh ..."
+                                name="address"
+                                value={users.address}
                                 onChange={handleChange}
 
                             />

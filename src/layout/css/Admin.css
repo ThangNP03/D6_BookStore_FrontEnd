@@ -1,0 +1,27 @@
+.manager-button{
+    text-decoration: none;
+    color: black;
+    /* padding: 10px 30px 10px  30px ; */
+    font-size: 20px;
+}
+.manager-1{
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/npthangcom.appspot.com/o/setting-books-icon-503x512-wo3js44y.png?alt=media&token=4850c21b-1884-4022-bc43-f588421d1656');
+    background-size: cover;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+.manager-2{
+    background-image: url('https://png.pngtree.com/png-vector/20190307/ourlarge/pngtree-vector-user-management-icon-png-image_780446.jpg');
+    background-size: cover;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+.manager-3{
+    background-image: url('https://png.pngtree.com/png-clipart/20230407/original/pngtree-green-medal-approval-sign-png-image_9034640.png');
+    background-size: cover;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}

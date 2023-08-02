@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ListBook from './ListBook';
 import './css/BookDetail.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { toast } from 'react-hot-toast';
 import axios from 'axios';
 export default function BookDetail() {
 
@@ -12,11 +10,6 @@ export default function BookDetail() {
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
-  const [isLiked, setIsLiked] = useState(false);
-
-  const handleButtonClick = () => {
-    setIsLiked(!isLiked);
-  }
   const[book, setBook] = useState();
   const navigate = useNavigate();
   const handleCart = (bookId) => {
@@ -35,10 +28,9 @@ export default function BookDetail() {
 
 
   return (
-    <div className='pt-5' style={{ backgroundColor: '#f0f0ee' }}>
+    <div className='pt-5 ' style={{ backgroundColor: '#f0f0ee' }}>
       <div className='container' style={{ borderRadius: '6px', backgroundColor: '#fff' }}>
         <div className='row  ' >
-
           <div className='d-flex' >
             <div className='col-5 mt-4' style={{}}>
               <span >
@@ -132,6 +124,8 @@ export default function BookDetail() {
               </div>
             </div>
           </div>
+
+
           <div className='col-12' >
             <p className='mt-2'>
               {showFullText ? (

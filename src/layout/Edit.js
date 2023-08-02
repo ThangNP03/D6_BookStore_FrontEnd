@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { storage } from './config/config';
 import { uploadBytes, ref, getDownloadURL, listAll } from 'firebase/storage'
 import './css/Edit.css'

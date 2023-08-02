@@ -3,7 +3,7 @@ import './css/err.css'
 export default function Err404() {
   return (
     <>
-    <section className="page_404">
+    <section className="page_404 ">
         <div className="container">
             <div className="row">
                 <div className="col-sm-12 ">

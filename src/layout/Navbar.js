@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import '../layout/css/Navbar.css'
 import axios from 'axios';
+import authHeader from '../service/auth-hearder';
 
 export default function Navbar() {
-    const name = sessionStorage.getItem('username');
+    const name = sessionStorage.getItem('fullName');
     const role = JSON.parse(sessionStorage.getItem('roles'))
-
-
     const navigate = useNavigate();
+
     const handleLogout = () => {
         sessionStorage.clear();
 
@@ -19,8 +19,9 @@ export default function Navbar() {
     } else {
         if (role[0].authority == "ADMIN") {
             elementCheckRoles = <>
+
                 <a href="#">
-                    <Link className='text-navbar' to={'/bookManager'}>
+                    <Link className='text-navbar' to={'/admin'}>
                         <span >
                             <svg style={{ color: 'red' }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
                                 <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z" />
@@ -28,7 +29,7 @@ export default function Navbar() {
                             </svg>
                         </span>
                         <span className='mx-3'>
-                            Quản lí sách
+                            Quản lý 
                         </span>
                     </Link>
                 </a>
@@ -38,32 +39,35 @@ export default function Navbar() {
     let element = "";
     if (name) {
         element = <>
-            <em style={{ fontSize: '18px', fontWeight: '600' }}>{name}</em>
+            <em style={{ fontSize: '16px', fontWeight: '600' }}>{name}</em>
         </>
     }
     console.log(name);
     return (
         <div className=''>
             <>
-                <nav className="navbar navbar-expand-lg shadow  container-fluid navbar-book">
-
+                <nav className="navbar navbar-expand-lg shadow  container-fluid  navbar-book">
                     <div className="container nav-ul">
-                        <Link className="navbar-brand d-flex " style={{ alignItems: 'center' , color:'red',justifyContent:'center'}} to="/">
+                        <Link className="navbar-brand d-flex " style={{ alignItems: 'center', color: 'red', justifyContent: 'center' }} to="/">
                             <h1 className='mx-2'>
-                                BookStore    
-                            </h1>                
+                            LibraryBook
+                            </h1>
                         </Link>
                         <div   >
                             <ul className='d-flex mt-3' style={{ gap: '30px' }}>
-
-                                <Link className='navbar-text' to={'/'}>HOME</Link>
-                                <Link className='navbar-text' to={'/'}>HOME</Link>
-                                <Link className='navbar-text' to={'/'}>HOME</Link>
-                                <Link className='navbar-text' to={'/'}>HOME</Link>
-
+                                {name ?
+                                    <>
+                                        <Link className='navbar-text' to={'/'}>Trang Chủ </Link>
+                                        <Link className='navbar-text' to={'/listBook'}>Sản Phẩm</Link>
+                                        <Link className='navbar-text' to={'/cart'}>Giỏ hàng</Link>
+                                        <Link className='navbar-text' to={'/history'}>Lịch Sử</Link>
+                                    </> :
+                                    <>
+                                        <Link className='navbar-text' to={'/'}>Trang Chủ </Link>
+                                        <Link className='navbar-text' to={'/listBook'}>Sản Phẩm</Link>
+                                    </>}
                             </ul>
                         </div>
-
                         <button
                             className="navbar-toggler"
                             type="button"
@@ -80,25 +84,12 @@ export default function Navbar() {
 
 
                         <div>
-
-                            {/* Example single danger button */}
                             <div className="btn-group" style={{ gap: '25px' }}>
                                 <div>
 
                                     <ul className="menu" >
                                         {name ? <>
-                                            <span >
-                                                <a className='navbar-text' href="" style={{ color: '#333333', gap: '25px', display: 'inline-block' }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
-                                                    </svg>
-                                                </a>
-                                                <Link to={'/cart'} href="" className='mx-4 navbar-text' style={{ color: '#333333', display: 'inline-block' }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-                                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                                    </svg>
-                                                </Link>
-                                            </span>
+
                                             <div class="dropdown ">
 
                                                 <span class="dropbtn ">
@@ -111,8 +102,7 @@ export default function Navbar() {
                                                     </span>
                                                 </span>
                                                 <div class="dropdown-content">
-
-                                                    <a href="#" className='avt-a'>
+                                                    <a href="#" className='avt-a' >
                                                         <Link className="d-flex  text-navbar" to={'/profile'}>
                                                             <span>
                                                                 <img src="https://img.hoidap247.com/picture/answer/20200629/large_1593440826364.jpg"
@@ -122,14 +112,9 @@ export default function Navbar() {
                                                             </span>
                                                             <span className='mx-3 ' style={{ color: 'red' }}>
                                                                 {element}
+                                                                
                                                             </span>
-
-                                                            <span className='mx-4' style={{ color: 'red' }}>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                                                                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                                                                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                                                                </svg>
-                                                            </span>
+                                                               
                                                         </Link>
                                                     </a>
                                                     {elementCheckRoles}
@@ -142,6 +127,20 @@ export default function Navbar() {
                                                             </span>
                                                             <span className='mx-3'>
                                                                 Giỏ hàng
+                                                            </span>
+                                                        </Link>
+                                                    </a>
+                                                    <a href="#">
+                                                        <Link className='text-navbar' to={'/history'}>
+                                                            <span style={{ color: 'red' }}>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                                                                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
+                                                                    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
+                                                                    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                                                                </svg>
+                                                            </span>
+                                                            <span className='mx-3'>
+                                                                Lịch sử mượn sách
                                                             </span>
                                                         </Link>
                                                     </a>
@@ -159,20 +158,10 @@ export default function Navbar() {
                                                         </Link>
                                                     </a>
                                                 </div>
+
                                             </div>
                                         </> : <>
-                                        <span >
-                                                <a className='navbar-text' href="" style={{ color: '#333333', gap: '25px', display: 'inline-block' }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
-                                                    </svg>
-                                                </a>
-                                                <a to={'/cart'} href="" className='mx-2 navbar-text' style={{ color: '#333333', display: 'inline-block' }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-                                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                                    </svg>
-                                                </a>
-                                            </span>
+
                                             <div class="dropdown login-register">
                                                 <div class="dropbtn ">
                                                     <span href="" className='mt-3' style={{ color: '#333333', display: 'inline-block' }}>

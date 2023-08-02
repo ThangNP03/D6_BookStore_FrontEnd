@@ -3,7 +3,7 @@ import ListBook from './ListBook'
 
 export default function Home() {
     return (
-        <div style={{ backgroundColor: '#f0f0f0' }}>
+        <div style={{ backgroundColor: '#f0f0f0' }} >
             {/* Carousel slider */}
             <div id="demo" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 {/* Indicators/dots */}

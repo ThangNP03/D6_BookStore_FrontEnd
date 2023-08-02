@@ -79,7 +79,7 @@ export default function CreateBook() {
       });
   };
   return (
-    <div className='pb-3 pt-5' style={{ backgroundColor: '#f0f0ee' }}>
+    <div className='pb-3 pt-5 ' style={{ backgroundColor: '#f0f0ee' }}>
       <div className='container'>
         <form style={{ width: '60%', margin: ' 0 auto' }} className='shadow p-5 mb-5 mt-5' onSubmit={handleSubmit}>
           <h1 style={{ color: 'red' }}>Form thêm mới sách</h1>

@@ -91,12 +91,12 @@ const ListBook = () => {
 
  
   const handleCart = (id) => {
-
     let cart = {
       bookId: id
     }
 
-    axios.post(`http://localhost:8080/api/bookStore/cart/addBook`, cart,
+    console.log("idre", cart);
+    axios.post(`http://localhost:8080/api/bookStore/cart/addBook`, cart, 
     {
         headers: authHeader(),
     }
@@ -109,18 +109,21 @@ const ListBook = () => {
       
     })
     .catch((error) => {
+      toast.error("Vui lòng đăng nhập để mượn sách")
       console.error(error);
-      // toast.error("Có lỗi xảy ra khi thêm vào giỏ hàng!!");
     });
 
   }
 
+
   const handleBookClick = (bookId, bookName, description, depositFee, loanPrice, image, likes, numberOfPage, author, nxb, quantity, status, translator) => {
     setSelectedBookId(bookId); // Cập nhật state "selectedBookId" khi người dùng nhấp vào sách
+    window.scroll(0,0)
     navigate(
       {
         pathname: '/bookDetail',
         search: `?id=${bookId}`
+      
 
       }, {
       state: {
@@ -145,10 +148,10 @@ const ListBook = () => {
   };
 
   return (
-    <div className='container pt-4' style={{ backgroundColor: '#fff', borderRadius: '0px 0px 6px 6px' }}>
+    <div className='container pt-4 ' style={{ backgroundColor: '#fff', borderRadius: '0px 0px 6px 6px' }}>
       <div className='col-8'>
       </div>
-      <div className='col-4 '>
+      <div className='col-4 mt-5'>
         <form className=' '>
           <div className='flex-grow-1 d-flex'>
             <input type="text"

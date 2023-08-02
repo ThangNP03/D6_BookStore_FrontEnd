@@ -2,9 +2,42 @@ import React from 'react'
 import "../layout/css/footer.css"
 
 export default function Footer() {
+    const handleClickDow = () => {
+        window.scroll(5000, 5000)
+    }
+    const handleClickTop = () => {
+        window.scroll(0, 0)
+    }
     return (
         <div className='pt-3' style={{ backgroundColor: '#f0f0ee' }}>
+            <div>
+                <button className='btn btn-warning d-flex justify-content-center' onClick={handleClickTop} style={{
+                    borderRadius: '50%',
+                    top: '600px',
+                    right: '30px',
+                    position: 'fixed'
+                }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg>
+                </button>
+                <button className='btn btn-warning d-flex justify-content-center' onClick={handleClickDow} style={{
+                    borderRadius: '50%',
+                    top: '650px',
+                    right: '30px',
+                    position: 'fixed'
+                }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </button>
+            </div>
             <div className='container p-2' >
+                <div className='d-flex justify-content-end mb-3'>
+
+                </div>
                 <div className='text-center d-flex pt-2 pb-2' style={{ backgroundColor: '#9fa7ab', borderRadius: '6px  6px 0 0' }}>
                     <div className='col-2'>
 
@@ -214,8 +247,8 @@ export default function Footer() {
                         </div>
 
                         <div className='text-center mt-3'>
-                            <p style={{color:'#adadad'}}>
-                            Giấy chứng nhận Đăng ký Kinh doanh số 0304132047 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 20/12/2005, đăng ký thay đổi lần thứ 10, ngày 20/05/2022.
+                            <p style={{ color: '#adadad' }}>
+                                Giấy chứng nhận Đăng ký Kinh doanh số 0304132047 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 20/12/2005, đăng ký thay đổi lần thứ 10, ngày 20/05/2022.
 
                             </p>
                         </div>

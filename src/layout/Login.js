@@ -9,7 +9,7 @@ import FacebookLogin from 'react-facebook-login';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [passWord, setPassWord] = useState('');
-  const [name, setName] = useState('');
+  const [fullName, setFulName] = useState('');
 
   const navigate = useNavigate();
 
@@ -46,16 +46,28 @@ export default function Login() {
       if (username === "" || passWord === "") {
         toast.error("Thông tin không được để trống")
       } else {
-        sessionStorage.setItem('username', username)
-        sessionStorage.setItem('name', name)
+       
         sessionStorage.setItem('token', response.data.token)
+        sessionStorage.setItem('fullName', response.data.fullName)
         sessionStorage.setItem('roles', JSON.stringify(response.data.listRoles))
-
-        toast('Xin Chào ' + response.data.fullName, {
-          icon: '👏',
-        });
-        navigate('/')
+        sessionStorage.setItem('id', response.data.userId)
+        const role = JSON.parse(sessionStorage.getItem('roles'))
+        if (role[0].authority == "ADMIN"){
+          toast('Xin Chào ' + response.data.fullName, {
+            icon: '👏',
+          })
+          navigate('/admin')
+        }else{
+          toast('Xin Chào ' + response.data.fullName, {
+            icon: '👏',
+          })
+          navigate('/')
+        }
+       
+      
+      
       }
+      console.log("id",response.data.id);
 
     } catch (error) {
       console.error(error);

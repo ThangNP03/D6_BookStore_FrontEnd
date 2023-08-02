@@ -22,6 +22,9 @@
   .hear-all{
     position: absolute;
   }
+  .hear-all:hover{
+    font-size: 30px;
+  }
   .hear-icons{
     transition: width 2s ease 0s;
     -moz-transition: width 2s ease 0s;
