@@ -19,7 +19,6 @@ export default function Navbar() {
     } else {
         if (role[0].authority == "ADMIN") {
             elementCheckRoles = <>
-
                 <a href="#">
                     <Link className='text-navbar' to={'/admin'}>
                         <span >
@@ -29,7 +28,7 @@ export default function Navbar() {
                             </svg>
                         </span>
                         <span className='mx-3'>
-                            Quản lý 
+                            Quản lý
                         </span>
                     </Link>
                 </a>
@@ -48,10 +47,10 @@ export default function Navbar() {
             <>
                 <nav className="navbar navbar-expand-lg shadow  container-fluid  navbar-book">
                     <div className="container nav-ul">
-                        <Link className="navbar-brand d-flex " style={{ alignItems: 'center', color: 'red', justifyContent: 'center' }} to="/">
-                            <h1 className='mx-2'>
-                            LibraryBook
-                            </h1>
+                        <Link className="navbar-brand" to="/">
+
+                            <img src="https://thuviensach.vn/img/logo/logo4.png?v=3.40" height={60} width={80} alt="" />
+
                         </Link>
                         <div   >
                             <ul className='d-flex mt-3' style={{ gap: '30px' }}>
@@ -89,13 +88,13 @@ export default function Navbar() {
 
                                     <ul className="menu" >
                                         {name ? <>
-
                                             <div class="dropdown ">
 
                                                 <span class="dropbtn ">
                                                     <span href="" className='mt-3' style={{ color: '#333333', display: 'inline-block' }}>
                                                         {element}
-                                                        <a href="" className='mx-2' style={{ color: '#333333', display: 'inline-block' }}>  <img src="https://img.hoidap247.com/picture/answer/20200629/large_1593440826364.jpg"
+                                                        <a href="" className='mx-2' style={{ color: '#333333', display: 'inline-block' }}>  
+                                                        <img src="https://i.pinimg.com/564x/3a/32/a4/3a32a45d26021cb1d3b0d2930ff3fb36.jpg"
                                                             width={'30px'}
                                                             height={'30px'}
                                                             style={{ borderRadius: '50px' }} alt="ảnh*" /></a>
@@ -105,16 +104,16 @@ export default function Navbar() {
                                                     <a href="#" className='avt-a' >
                                                         <Link className="d-flex  text-navbar" to={'/profile'}>
                                                             <span>
-                                                                <img src="https://img.hoidap247.com/picture/answer/20200629/large_1593440826364.jpg"
+                                                                <img src="https://i.pinimg.com/564x/3a/32/a4/3a32a45d26021cb1d3b0d2930ff3fb36.jpg"
                                                                     width={'30px'}
                                                                     height={'30px'}
                                                                     style={{ borderRadius: '50px' }} alt="ảnh*" />
                                                             </span>
                                                             <span className='mx-3 ' style={{ color: 'red' }}>
                                                                 {element}
-                                                                
+
                                                             </span>
-                                                               
+
                                                         </Link>
                                                     </a>
                                                     {elementCheckRoles}

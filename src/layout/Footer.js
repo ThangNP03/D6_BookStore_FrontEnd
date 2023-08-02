@@ -12,7 +12,8 @@ export default function Footer() {
         <div className='pt-3' style={{ backgroundColor: '#f0f0ee' }}>
             <div>
                 <button className='btn btn-warning d-flex justify-content-center' onClick={handleClickTop} style={{
-                    borderRadius: '50%',
+                    borderRadius: '6px',
+                    border:'1px solid #333333 ',
                     top: '600px',
                     right: '30px',
                     position: 'fixed'
@@ -23,7 +24,8 @@ export default function Footer() {
                     </svg>
                 </button>
                 <button className='btn btn-warning d-flex justify-content-center' onClick={handleClickDow} style={{
-                    borderRadius: '50%',
+                      borderRadius: '6px',
+                      border:'1px solid #333333 ',
                     top: '650px',
                     right: '30px',
                     position: 'fixed'

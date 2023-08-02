@@ -3,35 +3,44 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './css/BookManager.css'
+import authHeader from '../service/auth-hearder';
 
 export default function BookManager() {
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const navigate = useNavigate()
+
+  function fetch() {
+    axios.get('http://localhost:8080/api/bookStore/book')
+    .then((response) => {
+      setBooks(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+
   // Gọi Api book mỗi khi vào 
   useEffect(() => {
     // Fetch data from the backend API
-    axios.get('http://localhost:8080/api/bookStore/book')
-      .then((response) => {
-        setBooks(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    fetch()
   }, []);
 
   //Xóa book
   const deleteBook = (id) => {
-    // Call the delete API to remove the book
-    axios.delete(`http://localhost:8080/api/bookStore/book/delete/${id}`)
+    console.log(id);
+    axios.delete(`http://localhost:8080/api/bookStore/book/delete/${id}`, {},  {
+      headers: authHeader(),
+    })
       .then(() => {
-        // Remove the deleted book from the local state
-        setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
         toast.success("Xóa thành công")
+        fetch()
       })
       .catch((error) => {
         console.error(error);
-      });
+      }
+      );
   };
   const handleBookClick=(bookId)=>{
     navigate(`/edit/${bookId}`)

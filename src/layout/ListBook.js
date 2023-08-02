@@ -123,10 +123,9 @@ const ListBook = () => {
       {
         pathname: '/bookDetail',
         search: `?id=${bookId}`
-      
-
       }, {
       state: {
+        bookId :`${bookId}`,
         bookName: `${bookName}`,
         description: `${description}`,
         depositFee: `${depositFee}`,

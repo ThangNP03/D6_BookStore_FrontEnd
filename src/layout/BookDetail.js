@@ -3,18 +3,17 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ListBook from './ListBook';
 import './css/BookDetail.css'
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import authHeader from '../service/auth-hearder';
 export default function BookDetail() {
 
   const [showFullText, setShowFullText] = useState(false);
   const location = useLocation();
+
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
-  const[book, setBook] = useState();
-  const navigate = useNavigate();
-  const handleCart = (bookId) => {
-    navigate(`/cart/${bookId}`)
-  }
+  const [book, setBook] = useState();
   useEffect(() => {
     axios.get('http://localhost:8080/api/bookStore/book')
       .then((response) => {
@@ -35,9 +34,21 @@ export default function BookDetail() {
             <div className='col-5 mt-4' style={{}}>
               <span >
                 <img src={location.state.image} alt="ảnh lõi " style={{ width: '400px', height: '300px' }} />
-
-
               </span>
+              <div className='mt-3'>
+                <span>
+                  <button className='btn btn-outline-danger '>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg> Thêm vào giỏ mượn sách
+                  </button></span>
+                <span>
+                  <button className='btn btn-danger mx-3 '>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg>  mượn sách
+                  </button></span>
+              </div>
             </div>
             <span className=' mt-4 hear-all' >
               <svg className='hear-icons' color='red' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -53,7 +64,7 @@ export default function BookDetail() {
               <h3>
                 {location.state.bookName}
               </h3>
-              <div className='d-flex' >
+              <div className='d-flex' style={{ gap: '5px' }}>
 
                 <div className='col-8'>
 
@@ -65,7 +76,7 @@ export default function BookDetail() {
                     <svg className='mx-2' xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
                       <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                     </svg>
-                    <span> Thời gian giao hàng : 3-7 ngày</span>
+                    <span> <strong>Thời gian nhận sách </strong>: 1-2 ngày kể từ lúc được duyệt yêu cầu mượn</span>
 
                   </p>
                   <p>
@@ -74,23 +85,14 @@ export default function BookDetail() {
                       <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z" />
                     </svg>
                     <span className='mx-2'>
-                      Thời gian trả sách : 30 ngày kể từ ngày mượn sách
+                      <strong>
+                        Thời gian trả sách
+                      </strong> : 30 ngày kể từ ngày mượn sách
                     </span>
                   </p>
                   <p style={{ color: '#C92127', fontSize: '36px' }}> <em>Giá mượn sách : {location.state.loanPrice}.000đ</em></p>
 
-                  <div className='mt-3'>
-                    {/* <span> <button className='btn btn-outline-danger '>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                      </svg> Thêm vào giỏ mượn sách</button></span> */}
-                    {/* <button className='btn btn-danger' onClick={() => handleCart(
-                        book.bookId
-                    )}>Thêm vào giỏ mượn</button>
-                    <span className='mx-3  '>
-                      <Link className='btn btn-outline-danger ' to={'/cart'}>Mượn sách</Link>
-                    </span> */}
-                  </div>
+
                   <div className='mt-3'>
                     <Link className='back' to={'/'} style={{ textDecoration: 'none ' }}>
                       Trở lại trang chủ </Link>
@@ -100,8 +102,8 @@ export default function BookDetail() {
                   </div>
                 </div>
                 <div className='col-4'>
-                  <p>   Tác giả :  {location.state.author}</p>
-                  <p> Trạng thái : <span>
+                  <p>   <strong> Tác giả</strong> :  {location.state.author}</p>
+                  <p> <strong>Trạng thái</strong> : <span>
                     {location.state.status ? 'Hoàn thành' : 'Đang tiến hành '}
                   </span>
                     <span className='mx-2'>
@@ -112,10 +114,17 @@ export default function BookDetail() {
                     </span>
                   </p>
                   <p>
-                    Người dịch : {location.state.translator}
+                    <strong>Người dịch </strong>: {location.state.translator}
                   </p>
                   <p>
-                    Số trang  : {location.state.numberOfPage}
+                    <span>
+                      <strong>Số trang</strong>  : {location.state.numberOfPage}
+                    </span>
+                    <span className='mx-2'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+                      </svg>
+                    </span>
                   </p>
                 </div>
 

@@ -9,12 +9,12 @@
 .navbar-brand {
 border: 2px solid red;
 border-radius: 6px;
-padding-right: 10px;
+padding: 10px;
 }
 
-.navbar-brand:hover {
+/* .navbar-brand:hover {
 background-color: #c92127;
-}
+} */
 .navbar-brand:hover{
 color: #fff !important;
 }

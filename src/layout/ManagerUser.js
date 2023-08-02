@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
+import './css/BookManager.css'
 export default function ManagerUser() {
   const [users, setUser] = useState([]);
   console.log("usser",users);
@@ -15,8 +15,8 @@ export default function ManagerUser() {
   }, []);
 
   return (
-    <div>
-      <div className='container pt-5'>
+    <div className=''>
+      <div className='container pt-5 grid-container mt-4' >
         <table class="table table-striped">
           <thead>
             <tr>
@@ -25,6 +25,7 @@ export default function ManagerUser() {
               <th scope="col">Tên đầy đủ</th>
               <th scope="col">Số điện thoại</th>
               <th scope="col">Đại chỉ</th>
+              <th colSpan={2}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,10 @@ export default function ManagerUser() {
               <td>{user.fullName}</td>
               <td>{user.phoneNumber}</td>
               <td>{user.address}</td>
+              <td>
+                  <button className='btn btn-success mx-2'>Active</button>
+                  <button className='btn btn-danger'>Block</button>
+              </td>
             </tr>
             ))}
           </tbody>

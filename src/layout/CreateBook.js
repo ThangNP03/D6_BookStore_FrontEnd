@@ -57,8 +57,8 @@ export default function CreateBook() {
     axios.post('http://localhost:8080/api/bookStore/book/create', formData, imageUrl)
       .then((response) => {
         toast.success("Thêm mới thành công")
+        window.scroll(0,0)
         navigate("/bookManager")
-        // Reset the form data
         setFormData({
           bookName: '',
           description: '',
@@ -123,16 +123,10 @@ export default function CreateBook() {
             <h6>Quantity</h6>
             <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} /><br />
           </div>
-          <div>
-            <h6>Trạng thái </h6>
-            <select name="status" onChange={handleChange}>
-              <option value="0" selected>Còn Hàng </option>
-              <option value="1">Hết Hàng</option>
-            </select>
-          </div>
+        
           <div>
             <h6>Image</h6>
-            <img width="100" src={imageUrl} alt="new-product" />
+            {imageUrl =="" ? <>Thêm ảnh vào đây</> : <><img width="100" src={imageUrl} alt="Thêm mới ảnh" /></>}
             <input type="file" onChange={uploadImage} />
           </div>
 
