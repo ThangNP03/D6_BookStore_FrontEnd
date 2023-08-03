@@ -51,6 +51,17 @@ export default function Login() {
         sessionStorage.setItem('fullName', response.data.fullName)
         sessionStorage.setItem('roles', JSON.stringify(response.data.listRoles))
         sessionStorage.setItem('id', response.data.userId)
+        console.log(response.data);
+        if( response.data.avatar == ''){
+         let avt = ""
+          sessionStorage.setItem('avatar', 'https://firebasestorage.googleapis.com/v0/b/npthangcom.appspot.com/o/bookStore%2Favatar.jpg?alt=media&token=4b55105e-2e5a-46e3-b2ce-15050b67c972')
+          console.log("1", response.data.avatar);
+        }else{
+          sessionStorage.setItem('avatar', response.data.avatar)
+          console.log("2", response.data.avatar);
+        }
+       
+        
         const role = JSON.parse(sessionStorage.getItem('roles'))
         if (role[0].authority == "ADMIN"){
           toast('Xin Chào ' + response.data.fullName, {

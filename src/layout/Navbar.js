@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import '../layout/css/Navbar.css'
-import axios from 'axios';
-import authHeader from '../service/auth-hearder';
+
 
 export default function Navbar() {
     const name = sessionStorage.getItem('fullName');
     const role = JSON.parse(sessionStorage.getItem('roles'))
     const navigate = useNavigate();
-
+    const avatarDefault = sessionStorage.getItem('avatar')
     const handleLogout = () => {
         sessionStorage.clear();
 
@@ -94,7 +93,7 @@ export default function Navbar() {
                                                     <span href="" className='mt-3' style={{ color: '#333333', display: 'inline-block' }}>
                                                         {element}
                                                         <a href="" className='mx-2' style={{ color: '#333333', display: 'inline-block' }}>  
-                                                        <img src="https://i.pinimg.com/564x/3a/32/a4/3a32a45d26021cb1d3b0d2930ff3fb36.jpg"
+                                                        <img src={avatarDefault}
                                                             width={'30px'}
                                                             height={'30px'}
                                                             style={{ borderRadius: '50px' }} alt="ảnh*" /></a>
@@ -104,7 +103,7 @@ export default function Navbar() {
                                                     <a href="#" className='avt-a' >
                                                         <Link className="d-flex  text-navbar" to={'/profile'}>
                                                             <span>
-                                                                <img src="https://i.pinimg.com/564x/3a/32/a4/3a32a45d26021cb1d3b0d2930ff3fb36.jpg"
+                                                                <img src={avatarDefault}
                                                                     width={'30px'}
                                                                     height={'30px'}
                                                                     style={{ borderRadius: '50px' }} alt="ảnh*" />

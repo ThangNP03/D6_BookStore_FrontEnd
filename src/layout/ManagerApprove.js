@@ -50,13 +50,30 @@ export default function ManagerApprove() {
             console.error(error);
         }
     }
-    // cf yêu cầu trả sách
 
-    // Xem chi tiết đơn mượn 
-    const handleDetails = () => {
-
+    // Hủy yêu cầu 
+    const handleCancelBorrow = async (id) => {
+        console.log(id);
+        try {
+            const response = await axios.patch(`http://localhost:8080/api/bookStore/admin/cancelBorrow/${id}`, {}, { headers: authHeader() }).then((res) => {
+                axios.get('http://localhost:8080/api/bookStore/cart')
+                    .then((response) => {
+    
+                        setBooks(response.data);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            )
+            console.log(response);
+            toast.success("Bạn đã Hủy yêu cầu mượn sách  !!!")
+        } catch (error) {
+            console.error(error);
+        }
     }
-    // xem chi tiết đơn mượn 
+    // Hủy yêu cầu 
+
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/bookStore/cart')
@@ -99,8 +116,13 @@ export default function ManagerApprove() {
         },
         {
             id: 5,
-            title: "Hủy yêu cầu",
+            title: "Yêu cầu mượn bị hủy ",
             value: book.filter((h) => h.status == "Cancel")
+        },
+        {
+            id: 6,
+            title: "Hủy mượn",
+            value: book.filter((h) => h.status == "CancelBorrow")
         },
 
     ]
@@ -110,7 +132,6 @@ export default function ManagerApprove() {
 
 
     return (
-
         <div style={{ backgroundColor: 'rgb(240, 240, 238)' }}>
             <section className="h-100 h-custom " >
                 <div className="container py-5 h-100">
@@ -213,7 +234,17 @@ export default function ManagerApprove() {
                                                                             </h6>
                                                                         </> : e.status == "Cancel" ? <>
                                                                             <h6 style={{ fontSize: '18px', color: 'red' }}>
-                                                                                <span> Hủy mượn sách </span>
+                                                                                <span> Người mượn hủy </span>
+                                                                                <span className='mx-2'>
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                                                                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </h6>
+                                                                        </> :  e.status == "CancelBorrow" ? <>
+                                                                            <h6 style={{ fontSize: '18px', color: 'red' }}>
+                                                                                <span> Hủy yêu cầu mượn  </span>
                                                                                 <span className='mx-2'>
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
                                                                                         <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
@@ -223,6 +254,7 @@ export default function ManagerApprove() {
                                                                             </h6>
                                                                         </> : <></>}
                                                                 </div>
+                                                               
                                                             </div >
                                                         </>
                                                         <hr className="my-4" />
@@ -238,7 +270,7 @@ export default function ManagerApprove() {
                                                                         </svg>
                                                                     </span>
                                                                 </button>
-                                                                <button className='btn btn-danger mx-2' type='button' onClick={(b) => handleCfBook(
+                                                                <button className='btn btn-danger mx-2' type='button' onClick={(b) => handleCancelBorrow(
                                                                     e.id,
                                                                     b.preventDefault()
                                                                 )}>

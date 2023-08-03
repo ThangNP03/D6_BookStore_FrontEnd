@@ -25,6 +25,9 @@ export default function Edit() {
     status:''
 
   });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const [imageUrl, setImageUrl] = useState("");
 
   const imagesListRef = ref(storage, "uploads/")
@@ -64,9 +67,7 @@ export default function Edit() {
       });
     });
   }, []);
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+
   // console.log('imaga===>', formData.image);
   const handleSubmit = (e) => {
     e.preventDefault()

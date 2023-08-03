@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 export default function Cart() {
   const [book, setBooks] = useState();
   const userID = sessionStorage.getItem("id");
-  console.log("usser===>", userID);
+
 
 
   useEffect(() => {
@@ -96,8 +96,12 @@ export default function Cart() {
             fetch()
           }
         )
-      // toast.promise("Bạn đá mượn sách ! Vui lòng chờ xác nhận mượn .")
-      toast.success("Bạn đá mượn sách ! Vui lòng chờ xác nhận mượn .")
+
+      toast.success("Bạn đá mượn sách ! Vui lòng chờ xác nhận mượn .", {
+        style: {
+          zIndex: 1000
+        }
+      })
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -147,7 +151,7 @@ export default function Cart() {
                       <div className="d-flex justify-content-between align-items-center mb-5">
                         <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
 
-                        <h6 className="mb-0 text-muted">3 items</h6>
+                        {/* <h6 className="mb-0 text-muted">{book.length != "" ? <> </>: <> Số sản phẩm :  {book.length}</>}</h6> */}
                       </div>
 
                       <form>
@@ -186,7 +190,7 @@ export default function Cart() {
                                       )} className="btn btn-dark btn-sm" style={{ margin: '1px' }} >+</span>
                                     </>}
                                   </div>
-                                  
+
                                   {book.status == "" ? <>
                                     <div className="col-md-2 col-lg-21 col-xl-2 text-end">
                                       <h6 style={{ fontSize: '20px', color: '#e91e63' }}>
@@ -208,19 +212,22 @@ export default function Cart() {
                                       }}
                                     >X</button>
                                   </div>
-
+                                  
                                 </div >
                               </> : <></>}
 
 
                             </>
+
                           )}
                           <hr className="my-4" />
                         </>}
                         <div className='text-end '>
-                          <button className='btn btn-warning' type='submit' style={{ borderRadius: '6px' }} onClick={(e) => handleOrderBook(
-                            e.preventDefault(),
-                          )}>Mượn sách</button>
+                          {book == undefined ? <><div></div></> : <>
+                            <button className='btn btn-warning' type='submit' style={{ borderRadius: '6px' }} onClick={(e) => handleOrderBook(
+                              e.preventDefault(),
+                            )}>Mượn sách</button>
+                          </>}
                         </div>
                       </form>
 

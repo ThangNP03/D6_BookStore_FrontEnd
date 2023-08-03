@@ -41,7 +41,7 @@ export default function History() {
             const response = await axios.patch(`http://localhost:8080/api/bookStore/cart/author-cancel/${id}`, {},
                 { headers: authHeader() }).then((res) => {
                     console.log("data", res.data);
-                    window.location.reload()
+
                     fetch()
                 }
                 )
@@ -65,7 +65,7 @@ export default function History() {
                 }
                 )
             console.log(response);
-            toast.success("Bạn đã trả sách  !!!")
+            toast.success("Bạn đã gửi yêu cầu trả sách  !!!")
         } catch (error) {
             console.error(error);
         }
@@ -79,7 +79,7 @@ export default function History() {
             const response = await axios.patch(`http://localhost:8080/api/bookStore/cart/replay/${id}`, {},
                 { headers: authHeader() }).then((res) => {
                     console.log("data", res.data);
-                    window.location.reload()
+
                     fetch()
                 }
                 )
@@ -124,6 +124,12 @@ export default function History() {
             title: "Hủy yêu cầu",
             value: book.filter((h) => h.status == "Cancel")
         },
+        {
+            id: 6,
+            title: "Yêu cầu bị hủy ",
+            value: book.filter((h) => h.status == "CancelBorrow")
+        },
+
 
     ]
 
@@ -161,7 +167,7 @@ export default function History() {
                                                         </span>
                                                     })}
 
-                                             
+
                                                 </div>
                                             </div>
                                             {tab[active].value.map((e, index) => {
@@ -244,21 +250,45 @@ export default function History() {
                                                                                     </svg>
                                                                                 </span>
                                                                             </h6>
-                                                                        </> : <></>}
+                                                                        </> : e.status == "CancelBorrow" ?
+                                                                            <>
+                                                                                <h6 style={{ fontSize: '18px', color: 'red' }}>
+                                                                                    <span> Yêu cầu bị hủy </span>
+                                                                                    <span className='mx-2'>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                                                                            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                </h6>
+
+                                                                            </> : <></>}
+
                                                                 </div>
-                                                                <div className="col-md-3 col-lg-3 col-xl-2 text-center">
+                                                                <div className="col-md-2 col-lg-2 col-xl-2">
                                                                     {e.status == "Loading" || e.status == "" ? <>
-                                                                        <button className='btn btn-danger mx-2 my-2'
-                                                                            onClick={(b) => handleCancelBook(
-                                                                                e.id,
-                                                                                b.preventDefault())}
-                                                                        >Hủy Mượn </button>
+                                                                        <div className='text-center'>
+                                                                            <button className='btn btn-danger mx-2 my-2'
+                                                                                onClick={(b) => handleCancelBook(
+                                                                                    e.id,
+                                                                                    b.preventDefault())}
+                                                                            >Hủy Mượn </button>
+                                                                        </div>
                                                                     </> : <></>}
-                                                                    {e.status == "Cancel" ? <> <button className='btn btn-primary' onClick={(b) => handleReplay(e.id, b.preventDefault())}>Mượn lại </button></> : <></>}
+                                                                    {e.status == "Cancel" ? <> <button className='btn btn-primary' onClick={(b) => handleReplay(e.id, b.preventDefault())}>Mượn lại </button></> :
+                                                                        e.status == "CancelBorrow" ? <><strong> <span>Sách bạn muốn mượn hiện không còn, vui lòng chọn quyển khác !!!</span></strong></> : <></>
+                                                                    }
                                                                 </div>
 
+                                                                <div className=''>
+                                                                    { }
+                                                                </div>
+
+
                                                             </div >
+
                                                         </>
+
                                                         <hr className="my-4" />
 
                                                         {e.status == "Borrowed" ? <>
