@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import './css/BookManager.css'
 export default function ManagerUser() {
+  const avatarDefault = sessionStorage.getItem('avatar')
   const [users, setUser] = useState([]);
   console.log("usser",users);
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function ManagerUser() {
           <tbody>
           {users.map((user) => (
               <tr key={user.userId}>
-              <td><img src="https://i.pinimg.com/564x/3a/32/a4/3a32a45d26021cb1d3b0d2930ff3fb36.jpg" height={100} alt="anhloi" /></td>
+              <td>{user.avatar == "" ? <><img src="https://st5.depositphotos.com/19428878/63971/v/450/depositphotos_639712656-stock-illustration-add-profile-picture-icon-vector.jpg" alt="" height={100} width={100} /></> : <><img src={user.avatar} alt="" height={100} width={100} /></>}</td>
               <td>{user.username}</td>
               <td>{user.fullName}</td>
               <td>{user.phoneNumber}</td>

@@ -8,6 +8,7 @@ export default function Navbar() {
     const role = JSON.parse(sessionStorage.getItem('roles'))
     const navigate = useNavigate();
     const avatarDefault = sessionStorage.getItem('avatar')
+    console.log("avt", avatarDefault);
     const handleLogout = () => {
         sessionStorage.clear();
 
@@ -76,7 +77,7 @@ export default function Navbar() {
                             aria-label="Toggle navigation"
                         >
                             <span className="navbar-toggler-icon"></span>
-
+                                    
 
                         </button>
 
@@ -92,11 +93,11 @@ export default function Navbar() {
                                                 <span class="dropbtn ">
                                                     <span href="" className='mt-3' style={{ color: '#333333', display: 'inline-block' }}>
                                                         {element}
-                                                        <a href="" className='mx-2' style={{ color: '#333333', display: 'inline-block' }}>  
-                                                        <img src={avatarDefault}
-                                                            width={'30px'}
-                                                            height={'30px'}
-                                                            style={{ borderRadius: '50px' }} alt="ảnh*" /></a>
+                                                        <a href="" className='mx-2' style={{ color: '#333333', display: 'inline-block' }}>
+                                                            <img src={avatarDefault}
+                                                                width={'30px'}
+                                                                height={'30px'}
+                                                                style={{ borderRadius: '50px' }} alt="ảnh*" /></a>
                                                     </span>
                                                 </span>
                                                 <div class="dropdown-content">
@@ -142,6 +143,7 @@ export default function Navbar() {
                                                             </span>
                                                         </Link>
                                                     </a>
+                                                   
                                                     <a href="#">
                                                         <Link onClick={handleLogout} to={'/login'} className='text-navbar'>
                                                             <span style={{ color: 'red' }}>

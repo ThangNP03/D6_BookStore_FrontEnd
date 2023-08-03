@@ -13,18 +13,18 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const responseFacebook = (response) => {
+  // const responseFacebook = (response) => {
 
-    if (response.error) {
-      toast.error(response.error.message)
-    } else {
-      navigate('/')
-      toast('Xin Chào ' + response.name, {
-        icon: '👏',
-      });
-    }
-    console.log(response);
-  }
+  //   if (response.error) {
+  //     toast.error(response.error.message)
+  //   } else {
+  //     navigate('/')
+  //     toast('Xin Chào ' + response.name, {
+  //       icon: '👏',
+  //     });
+  //   }
+  //   console.log(response);
+  // }
 
 
 
@@ -52,8 +52,8 @@ export default function Login() {
         sessionStorage.setItem('roles', JSON.stringify(response.data.listRoles))
         sessionStorage.setItem('id', response.data.userId)
         console.log(response.data);
-        if( response.data.avatar == ''){
-         let avt = ""
+        if( response.data.avatar ==  null){
+         
           sessionStorage.setItem('avatar', 'https://firebasestorage.googleapis.com/v0/b/npthangcom.appspot.com/o/bookStore%2Favatar.jpg?alt=media&token=4b55105e-2e5a-46e3-b2ce-15050b67c972')
           console.log("1", response.data.avatar);
         }else{
@@ -127,15 +127,16 @@ export default function Login() {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn-login-login">
+              <button type="submit " className="btn-login-login">
                 Đăng nhập
               </button>
-              <FacebookLogin
+              <button className="button-face mt-2"> Đăng nhập bằng Facebook</button>
+              {/* <FacebookLogin
                 className='button-face'
                 appId="843734363846322"
                 autoLoad={true}
                 fields="name,email,picture"
-                callback={responseFacebook} />
+                callback={responseFacebook} /> */}
             </div>
             <div className="pt-3">
               <span>

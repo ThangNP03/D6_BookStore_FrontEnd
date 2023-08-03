@@ -4,6 +4,7 @@ import authHeader from '../service/auth-hearder';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from './config/config';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
     const [users, setUser] = useState({
@@ -20,9 +21,9 @@ export default function Profile() {
     const [imageUrl, setImageUrl] = useState("");
 
     const imagesListRef = ref(storage, "uploads/")
-  
+
     const uploadImage = (e) => {
-        
+
         let imageUpload = e.target.files[0];
         if (imageUpload == null) return;
         const imageRef = ref(storage, `bookStore/${imageUpload.name}`);
@@ -30,6 +31,7 @@ export default function Profile() {
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrl(url);
                 setUser({ ...users, avatar: url });
+                sessionStorage.setItem('avatar', url)
                 
             });
         });
@@ -44,6 +46,9 @@ export default function Profile() {
             headers: authHeader()
         })
             .then((response) => {
+              
+                sessionStorage.setItem('fullName', users.fullName)
+                window.location.reload()
                 toast.success(response.data.message)
             })
 
@@ -87,51 +92,65 @@ export default function Profile() {
                                 <div className="text-center">
                                     {/* <img type="file" src={users.avatar} onChange={uploadImage} className="avatar img-circle img-thumbnail" width={300} height={400} alt="avatar" /> */}
 
-                                         {users.avatar ? (
-                                            <>
-                                                <div className='d-flex' style={{position:'relative'}}>
-                                                    <img
-                                                        src={users.avatar}
-                                                        className="avatar img-circle img-thumbnail"
-                                                        width={300}
-                                                        height={400}
-                                                        alt="avatar"
-                                                    />
-                                                    <input
-                                                        style={{position: 'absolute', height:'300px', opacity:'0'}}
-                                                        type="file"
-                                                        onChange={uploadImage}
-                                                        alt=""
-                                                    />
-                                                </div>
-                                            </>
-                                        ) : (<>
-                                            <div className='d-flex' style={{position:'relative'}}>
+                                    {users.avatar ? (
+                                        <>
+                                            <div className='d-flex' style={{ position: 'relative' }}>
                                                 <img
-                                                    src="https://st5.depositphotos.com/19428878/63971/v/450/depositphotos_639712656-stock-illustration-add-profile-picture-icon-vector.jpg"
+                                                    src={users.avatar}
                                                     className="avatar img-circle img-thumbnail"
                                                     width={300}
                                                     height={400}
                                                     alt="avatar"
                                                 />
                                                 <input
+                                                    style={{ position: 'absolute', height: '300px', opacity: '0' }}
                                                     type="file"
                                                     onChange={uploadImage}
-                                                    className="avatar img-circle img-thumbnail"
-                                                    style={{position: 'absolute', height:'300px', opacity:'0'}}
                                                     alt=""
                                                 />
                                             </div>
                                         </>
+                                    ) : (<>
+                                        <div className='d-flex' style={{ position: 'relative' }}>
+                                            <img
+                                                src="https://st5.depositphotos.com/19428878/63971/v/450/depositphotos_639712656-stock-illustration-add-profile-picture-icon-vector.jpg"
+                                                className="avatar img-circle img-thumbnail"
+                                                width={300}
+                                                height={400}
+                                                alt="avatar"
+                                            />
+                                            <input
+                                                type="file"
+                                                onChange={uploadImage}
+                                                className="avatar img-circle img-thumbnail"
+                                                style={{ position: 'absolute', height: '300px', opacity: '0' }}
+                                                alt=""
+                                            />
+                                        </div>
+                                    </>
 
-                                        )} 
+                                    )}
                                     <h4>{users.fullName} </h4>
 
                                 </div>
+                                <div>
+                                    <a href="#" style={{textDecoration: "none"}}>
+                                        <Link className='text-navbar' to={'/changePass'}>
+                                            <span style={{ color: 'red' }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-wrench-adjustable" viewBox="0 0 16 16">
+                                                    <path d="M16 4.5a4.492 4.492 0 0 1-1.703 3.526L13 5l2.959-1.11c.027.2.041.403.041.61Z" />
+                                                    <path d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.49 4.49 0 0 0 11.5 9Zm-1.292-4.361-.596.893.809-.27a.25.25 0 0 1 .287.377l-.596.893.809-.27.158.475-1.5.5a.25.25 0 0 1-.287-.376l.596-.893-.809.27a.25.25 0 0 1-.287-.377l.596-.893-.809.27-.158-.475 1.5-.5a.25.25 0 0 1 .287.376ZM3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                                </svg>
+                                            </span>
+                                            <span className='mx-3'>
+                                                Đổi mật khẩu
+                                            </span>
+                                        </Link>
+                                    </a></div>
                             </div>
 
                             <div className="col-md-9 personal-info">
-                                <h3>Personal info</h3>
+                                <h3>Thông tin cá nhân</h3>
                                 <form className="form-horizontal" role="form">
                                     <div className="form-group">
                                         <label className="col-lg-3 control-label">Tên tài khoản :</label>

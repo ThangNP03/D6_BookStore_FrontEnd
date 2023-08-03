@@ -22,6 +22,7 @@ import History from './layout/History';
 import Admin from './layout/Admin';
 import ManagerApprove from './layout/ManagerApprove';
 import ManagerUser from './layout/ManagerUser';
+import ChangePassWord from './layout/ChangePassWord';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/err" element={<Err404 />} />
           <Route path='/history' element={<History />} />
+          <Route path='/changePass' element={<ChangePassWord />} />
         </Route>
       </Routes>
 
