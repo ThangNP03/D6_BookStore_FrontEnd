@@ -3,14 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import authHeader from '../service/auth-hearder';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 export default function ManagerApprove() {
 
     const [book, setBooks] = useState([]);
+    const [toggle , setToggle] = useState(false);
     // Duyệt cho mượn sách
     const handleCfBook = async (id, e) => {
 
         try {
+            setToggle(true)
             const response = await axios.patch(`http://localhost:8080/api/bookStore/admin/borrowed/${id}`, {}, { headers: authHeader() }).then((res) => {
                 axios.get('http://localhost:8080/api/bookStore/cart')
                     .then((response) => {
@@ -23,15 +26,18 @@ export default function ManagerApprove() {
             }
             )
             console.log(response);
+            setToggle(false)
             toast.success("Bạn đã duyệt đơn mượn sách !!!")
         } catch (error) {
+            setToggle(false)
             console.error(error);
         }
     }
     // Duyệt cho mượn sách
     // cf yêu cầu trả sách
     const handleCfReturn = async (id) => {
-        console.log(id);
+        setToggle(true)
+
         try {
             const response = await axios.patch(`http://localhost:8080/api/bookStore/admin/returnBook/${id}`, {}, { headers: authHeader() }).then((res) => {
                 axios.get('http://localhost:8080/api/bookStore/cart')
@@ -45,15 +51,17 @@ export default function ManagerApprove() {
             }
             )
             console.log(response);
+            setToggle(false)
             toast.success("Bạn đã duyệt trả sách !!!")
         } catch (error) {
+            setToggle(false)
             console.error(error);
         }
     }
 
     // Hủy yêu cầu 
     const handleCancelBorrow = async (id) => {
-        console.log(id);
+        setToggle(true)
         try {
             const response = await axios.patch(`http://localhost:8080/api/bookStore/admin/cancelBorrow/${id}`, {}, { headers: authHeader() }).then((res) => {
                 axios.get('http://localhost:8080/api/bookStore/cart')
@@ -67,8 +75,10 @@ export default function ManagerApprove() {
             }
             )
             console.log(response);
+            setToggle(false)
             toast.success("Bạn đã Hủy yêu cầu mượn sách  !!!")
         } catch (error) {
+            setToggle(false)
             console.error(error);
         }
     }
@@ -76,11 +86,14 @@ export default function ManagerApprove() {
 
 
     useEffect(() => {
+        setToggle(true)
         axios.get('http://localhost:8080/api/bookStore/cart')
             .then((response) => {
+                setToggle(false)
                 setBooks(response.data);
             })
             .catch((error) => {
+                setToggle(false)
                 console.error(error);
             });
     }, []);
@@ -309,7 +322,7 @@ export default function ManagerApprove() {
                         </div>
                     </div>
                 </div>
-
+                {toggle && <Loading />}
             </section >
         </div>
 

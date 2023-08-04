@@ -4,8 +4,10 @@ import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { storage } from './config/config';
 import { uploadBytes, ref, getDownloadURL, listAll } from 'firebase/storage'
+import Loading from './Loading';
 export default function CreateBook() {
   const navigate = useNavigate()
+  const [toggle , setToggle] = useState(false)
   const [formData, setFormData] = useState({
     bookName: '',
     description: '',
@@ -51,11 +53,13 @@ export default function CreateBook() {
   };
 
   const handleSubmit = (e) => {
+    setToggle(true)
     e.preventDefault();
 
     // Call the API to create a new book
     axios.post('http://localhost:8080/api/bookStore/book/create', formData, imageUrl)
       .then((response) => {
+        setToggle(false)
         toast.success("Thêm mới thành công")
         window.scroll(0,0)
         navigate("/bookManager")
@@ -133,6 +137,7 @@ export default function CreateBook() {
           <button className='btn btn-success mt-3' type="submit">Create</button>
           <div className=''> <Link to={'/bookManager'}>Trỏ lại trang quản lý</Link></div>
         </form>
+        {toggle && <Loading/>}
       </div>
     </div>
   );

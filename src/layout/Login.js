@@ -5,33 +5,26 @@ import { json, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"
 
 import FacebookLogin from 'react-facebook-login';
+import Loading from "./Loading";
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [passWord, setPassWord] = useState('');
   const [fullName, setFulName] = useState('');
+  const [toggle , setToggle] = useState(false);
+
 
   const navigate = useNavigate();
 
-  // const responseFacebook = (response) => {
 
-  //   if (response.error) {
-  //     toast.error(response.error.message)
-  //   } else {
-  //     navigate('/')
-  //     toast('Xin Chào ' + response.name, {
-  //       icon: '👏',
-  //     });
-  //   }
-  //   console.log(response);
-  // }
 
 
 
 
   const ProcLogin = async (event) => {
+    setToggle(true)
     event.preventDefault();
-
+    
     try {
       const response = await axios.post(
 
@@ -64,11 +57,13 @@ export default function Login() {
         
         const role = JSON.parse(sessionStorage.getItem('roles'))
         if (role[0].authority == "ADMIN"){
+          setToggle(false)
           toast('Xin Chào ' + response.data.fullName, {
             icon: '👏',
           })
           navigate('/admin')
         }else{
+          setToggle(false)
           toast('Xin Chào ' + response.data.fullName, {
             icon: '👏',
           })
@@ -81,8 +76,11 @@ export default function Login() {
       console.log("id",response.data.id);
 
     } catch (error) {
+
       console.error(error);
+      setToggle(false)
       toast.error(error.response.data);
+    
     }
 
   };
@@ -127,16 +125,10 @@ export default function Login() {
             </div>
 
             <div className="text-center">
-              <button type="submit " className="btn-login-login">
+              <button type="submit" className="btn-login-login">
                 Đăng nhập
               </button>
-              <button className="button-face mt-2"> Đăng nhập bằng Facebook</button>
-              {/* <FacebookLogin
-                className='button-face'
-                appId="843734363846322"
-                autoLoad={true}
-                fields="name,email,picture"
-                callback={responseFacebook} /> */}
+              <button className="btn-face mt-2"> Đăng nhập bằng Facebook</button>
             </div>
             <div className="pt-3">
               <span>
@@ -147,6 +139,7 @@ export default function Login() {
           </form>
         </div>
       </div>
+      {toggle && <Loading />}
     </div>
   )
 }

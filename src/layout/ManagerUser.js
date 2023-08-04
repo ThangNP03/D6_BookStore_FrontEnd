@@ -1,14 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import './css/BookManager.css'
+import Loading from './Loading';
 export default function ManagerUser() {
   const avatarDefault = sessionStorage.getItem('avatar')
   const [users, setUser] = useState([]);
-  console.log("usser",users);
+  const [toggle , setToggle] = useState(false);
   useEffect(() => {
+    setToggle(true)
     axios.get('http://localhost:8080/api/bookStore/auth/getAll')
       .then((response) => {
+    
         setUser(response.data);
+        setToggle(false)
       })
       .catch((error) => {
         console.error(error);
@@ -46,7 +50,7 @@ export default function ManagerUser() {
           </tbody>
         </table>
       </div>
-
+          {toggle && <Loading/>}
     </div>
   )
 }

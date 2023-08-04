@@ -3,11 +3,12 @@ import "./css/Cart.css"
 import axios from 'axios';
 import authHeader from '../service/auth-hearder';
 import { toast } from 'react-hot-toast';
+import Loading from './Loading';
 
 export default function Cart() {
   const [book, setBooks] = useState();
   const userID = sessionStorage.getItem("id");
-
+  const [toggle, setToggle] = useState(false)
 
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function Cart() {
 
 
   const handleCart = (id) => {
+    setToggle(true)
     let cart = {
       bookId: id
     }
@@ -46,17 +48,20 @@ export default function Cart() {
       .then((response) => {
 
         if (response.data.message == "postMessage") {
+          setToggle(false)
           toast.error("Số lượng  yêu cầu cho không có sẵn !!!")
         }
         fetch();
       })
       .catch((error) => {
+        setToggle(false)
         console.error(error);
       });
 
   }
 
   const handleDeleteQuantity = (id) => {
+    setToggle(true)
     let cart = {
       bookId: id
     }
@@ -70,18 +75,20 @@ export default function Cart() {
         fetch();
         console.log(response.data.message);
         if (response.data.message == "refuse") {
+          setToggle(false)
           toast.error("Số lượng không được bé hơn 1 ")
         }
 
       })
       .catch((error) => {
-
+        setToggle(false)
         console.error(error);
       });
 
   }
 
   const handleOrderBook = async () => {
+    setToggle(true)
     try {
       let listId = []
       for (let i = 0; i < book.length; i++) {
@@ -96,7 +103,7 @@ export default function Cart() {
             fetch()
           }
         )
-
+        setToggle(false)
       toast.success("Bạn đá mượn sách ! Vui lòng chờ xác nhận mượn .", {
         style: {
           zIndex: 1000
@@ -104,18 +111,22 @@ export default function Cart() {
       })
       console.log(response);
     } catch (error) {
+      setToggle(false)
       console.error(error);
     }
   }
 
   const deleteBook = (id) => {
+    setToggle(true)
     axios.delete(`http://localhost:8080/api/bookStore/cart/delete/${id}`)
       .then(() => {
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
+        setToggle(false)
         toast.success("Xóa thành công")
         fetch()
       })
       .catch((error) => {
+        setToggle(false)
         console.error(error);
       });
   };
@@ -128,9 +139,12 @@ export default function Cart() {
 
 
   useEffect(() => {
+    setToggle(true)
     axios.get('http://localhost:8080/api/bookStore/cart')
       .then((response) => {
+         
         setBooks(response.data);
+        setToggle(false)
       })
       .catch((error) => {
         console.error(error);
@@ -237,6 +251,7 @@ export default function Cart() {
                 </div>
               </div>
             </div>
+            {toggle && <Loading/>}
           </div>
         </div>
       </div>

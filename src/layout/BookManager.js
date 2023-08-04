@@ -4,16 +4,20 @@ import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './css/BookManager.css'
 import authHeader from '../service/auth-hearder';
+import Loading from './Loading';
 
 export default function BookManager() {
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(null);
+  const [toggle , setToggle] = useState(false)
   const navigate = useNavigate()
 
   function fetch() {
+    setToggle(true)
     axios.get('http://localhost:8080/api/bookStore/book')
     .then((response) => {
       setBooks(response.data);
+      setToggle(false)
     })
     .catch((error) => {
       console.error(error);
@@ -29,20 +33,23 @@ export default function BookManager() {
 
   //Xóa book
   const deleteBook = (id) => {
-    console.log(id);
+    setToggle(true)
     axios.delete(`http://localhost:8080/api/bookStore/book/delete/${id}`, {},  {
       headers: authHeader(),
     })
       .then(() => {
+        setToggle(false)
         toast.success("Xóa thành công")
         fetch()
       })
       .catch((error) => {
+        setToggle(false)
         console.error(error);
       }
       );
   };
   const handleBookClick=(bookId)=>{
+    setToggle(false)
     navigate(`/edit/${bookId}`)
   }
   return (
@@ -105,6 +112,7 @@ export default function BookManager() {
             ))}
           </tbody>
         </table>
+        {toggle && <Loading/>}
       </div>
     </div>
   );

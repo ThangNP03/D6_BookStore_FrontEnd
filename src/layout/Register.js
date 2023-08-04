@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast"
 import '../layout/css/Login.css'
 import { useNavigate } from 'react-router-dom';
 import './css/Register.css'
+import Loading from './Loading';
 
 export default function Register() {
     const navigate = useNavigate('');
@@ -27,20 +28,25 @@ export default function Register() {
     };
 
 
-
+    const [toggle , setToggle] = useState(false);
     const handleRegister = async (e) => {
+        setToggle(true)
         e.preventDefault()
         const { fullName, username, passWord, phoneNumber , address} = users
         if (!fullName || !username || !passWord || !phoneNumber || !address) {
+            setToggle(false)
             return toast.error("Thông tin không được để trống !!!!")
+            
         }
        
         try {
             await axios.post('http://localhost:8080/api/bookStore/auth/signUp', { fullName, username, passWord, phoneNumber, address })
+            setToggle(false)
             toast.success("Đăng ký thành công!")
             navigate('/login')
 
         } catch (error) {
+            setToggle(false)
             toast.error(error.response.data)
 
         }
@@ -125,6 +131,7 @@ export default function Register() {
                             <a style={{textDecoration:'none'}} className="mx-2" href='/login'>Đăng nhập </a>
                         </div>
                     </form>
+                    {toggle && <Loading/>}
                 </div>
             </div>
         </div>

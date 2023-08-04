@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from './config/config';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 export default function Profile() {
     const [users, setUser] = useState({
@@ -38,7 +39,9 @@ export default function Profile() {
 
 
     };
+    const [toggle , setToggle]= useState(false)
     const handleSubmit = (id) => {
+        setToggle(true)
         console.log(id);
 
         // Call the API to update the book
@@ -49,10 +52,12 @@ export default function Profile() {
               
                 sessionStorage.setItem('fullName', users.fullName)
                 window.location.reload()
+                setToggle(false)
                 toast.success(response.data.message)
             })
 
             .catch((error) => {
+                setToggle(false)
                 toast.error(error.response.data);
             });
 
@@ -60,8 +65,10 @@ export default function Profile() {
 
     const id = sessionStorage.getItem("id");
     useEffect(() => {
+        setToggle(true)
         async function fetchData() {
             await fetch()
+            setToggle(false)
         }
         fetchData()
     }, []);
@@ -182,7 +189,7 @@ export default function Profile() {
                         </div>
                     </>)
                 }
-
+                {toggle && <Loading/>}
 
 
                 <hr />

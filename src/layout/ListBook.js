@@ -7,10 +7,12 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import './css/ListBook.css'
 import authHeader from '../service/auth-hearder';
+import Loading from './Loading';
 
 const BookDetail = ({ bookId }) => {
   const [book, setBook] = useState();
   const navigate = useNavigate('')
+  
 
   useEffect(() => {
     const getBookDetail = async () => {
@@ -91,6 +93,7 @@ const ListBook = () => {
 
  
   const handleCart = (id) => {
+    setToggle(true)
     let cart = {
       bookId: id
     }
@@ -104,23 +107,26 @@ const ListBook = () => {
     .then((response) => {
       console.log(response.data);
       if(response.data.message = "test"){
+        setToggle(false)
         toast.success("Thêm vào giỏ hàng thành công!!");
       }
       
     })
     .catch((error) => {
+      setToggle(false)
       toast.error("Vui lòng đăng nhập để mượn sách")
       console.error(error);
     });
 
   }
-
+  const [toggle , setToggle] = useState(false);
 
   const handleBookClick = (bookId, bookName, description, depositFee, loanPrice, image, likes, numberOfPage, author, nxb, quantity, status, translator) => {
     setSelectedBookId(bookId); // Cập nhật state "selectedBookId" khi người dùng nhấp vào sách
     window.scroll(0,0)
     navigate(
       {
+        
         pathname: '/bookDetail',
         search: `?id=${bookId}`
       }, {
@@ -219,9 +225,10 @@ const ListBook = () => {
             </div>
           </div>
         ))}
-
+     
 
       </div>
+      {toggle && <Loading />}
     </div>
 
   );

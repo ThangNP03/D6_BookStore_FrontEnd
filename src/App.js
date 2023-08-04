@@ -23,6 +23,7 @@ import Admin from './layout/Admin';
 import ManagerApprove from './layout/ManagerApprove';
 import ManagerUser from './layout/ManagerUser';
 import ChangePassWord from './layout/ChangePassWord';
+import Loading from './layout/Loading';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="/err" element={<Err404 />} />
           <Route path='/history' element={<History />} />
           <Route path='/changePass' element={<ChangePassWord />} />
+          <Route path='/loading' element={<Loading />} />
         </Route>
       </Routes>
 
